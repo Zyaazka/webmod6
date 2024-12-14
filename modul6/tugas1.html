@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Pemesanan Kamar</title>
+    <script src="jquery-3.7.1.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Form Pemesanan Kamar</h1>
+    <form id="formPemesanan">
+        <label>ID Pemesan:</label>
+        <input type="text" id="idPemesan" required>
+
+        <label>Nama Pemesan:</label>
+        <input type="text" id="namaPemesan" required>
+
+        <label>Jenis Kelamin:</label>
+        <select id="jenisKelamin">
+            <option value="Laki-Laki">Laki-Laki</option>
+            <option value="Perempuan">Perempuan</option>
+        </select>
+
+        <label>Nomor Identitas:</label>
+        <input type="text" id="noIdentitas">
+
+        <label>Tipe Kamar:</label>
+        <select id="tipeKamar">
+            <option value="">Pilih Tipe Kamar</option>
+            <option value="Standar" data-harga="300000">Standar - Rp 300.000</option>
+            <option value="Deluxe" data-harga="500000">Deluxe - Rp 500.000</option>
+            <option value="Family" data-harga="700000">Family - Rp 700.000</option>
+        </select>
+
+        <label>Harga:</label>
+        <input type="text" id="harga" readonly>
+
+        <label>Tanggal Pesan:</label>
+        <input type="text" id="tanggalPesan" placeholder="dd/mm/yyyy">
+
+        <label>Durasi Menginap (hari):</label>
+        <input type="text" id="durasi">
+
+        <label>Termasuk Breakfast:</label>
+        <input type="checkbox" id="breakfast">
+
+        <label>Total Bayar:</label>
+        <input type="text" id="totalBayar" readonly>
+
+        <button type="button" id="hitungTotal">Hitung Total</button>
+    </form>
+
+    <script>
+        $(document).ready(function(){
+            $("#tipeKamar").change(function(){
+                const harga = $("#tipeKamar option:selected").data("harga");
+                $("#harga").val(harga || 0);
+            });
+
+            $("#hitungTotal").click(function(){
+                const noIdentitas = $("#noIdentitas").val();
+                const durasi = parseInt($("#durasi").val());
+                const harga = parseInt($("#harga").val());
+                const includeBreakfast = $("#breakfast").is(":checked");
+
+                if (noIdentitas.length !== 16 || isNaN(noIdentitas)) {
+                    alert("Isian salah, harus 16 digit");
+                    return;
+                }
+
+                if (isNaN(durasi)) {
+                    alert("Durasi menginap harus berupa angka");
+                    return;
+                }
+
+                let total = harga * durasi;
+                if (durasi > 3) {
+                    total *= 0.9;
+                }
+
+                if (includeBreakfast) {
+                    total += 80000;
+                }
+
+                $("#totalBayar").val("Rp " + total.toLocaleString("id-ID"));
+            });
+        });
+    </script>
+</body>
+</html>

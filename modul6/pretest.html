@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menampilkan dan Menyembunyikan Gambar dengan jQuery</title>
+    <!-- Menyertakan library jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        img {
+            margin-top: 20px;
+            max-width: 300px;
+            display: none; /* Awalnya gambar disembunyikan */
+        }
+    </style>
+</head>
+<body>
+    <button id="toggleImage">Tampilkan Gambar</button>
+    <br>
+    <!-- Gambar yang akan ditampilkan atau disembunyikan -->
+    <img id="gambar" src="../modul1/multimedia/gambar/images.png" alt="Contoh Gambar">
+
+    <script>
+        // jQuery Code
+        $(document).ready(function () {
+            // Mengubah teks tombol dan menampilkan/menyembunyikan gambar
+            $("#toggleImage").click(function () {
+                $("#gambar").toggle(); // Toggle menampilkan/menyembunyikan gambar
+                // Mengubah teks tombol sesuai dengan status gambar
+                if ($("#gambar").is(":visible")) {
+                    $("#toggleImage").text("Sembunyikan Gambar");
+                } else {
+                    $("#toggleImage").text("Tampilkan Gambar");
+                }
+            });
+        });
+    </script>
+</body>
+</html>
